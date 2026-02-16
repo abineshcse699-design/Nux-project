@@ -1,31 +1,28 @@
-<script lang="ts" setup>
-import type { TaskFilter } from '../types';
+<script setup lang="ts">
+import type { TaskFilter } from '../types'
 
 const props = defineProps<{
-  filter: TaskFilter;
-  currentFilter:TaskFilter;
-}>();
+  filter: TaskFilter
+  currentFilter: TaskFilter
+}>()
 
-const emits = defineEmits<{
-  setFilter: [filter: TaskFilter];
-}>();
+const emit = defineEmits<{
+  (e: 'set-filter', filter: TaskFilter): void
+}>()
 </script>
 
 <template>
   <button
     class="secondary"
-    @click="emits('setFilter', props.filter)"
-    :class="{
-        contrast:props.currentFilter === props.filter
-    }"
+    @click="emit('set-filter', props.filter)"
+    :class="{ contrast: props.currentFilter === props.filter }"
   >
-  {{ props.filter }}
+    {{ props.filter }}
   </button>
 </template>
 
 <style scoped>
 button {
   text-transform: capitalize;
-  
 }
 </style>

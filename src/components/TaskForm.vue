@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const newTask = ref<string>('')
-const error = ref<string>('')
+const newTask = ref('')
+const error = ref('')
 
 const emit = defineEmits<{
-  (e: 'addTask', value: string): void
+  (e: 'add-task', value: string): void
 }>()
 
 function formSubmitted(): void {
   if (newTask.value.trim()) {
-    emit('addTask', newTask.value.trim())
+    emit('add-task', newTask.value.trim())
     newTask.value = ''
     error.value = ''
   } else {
@@ -19,19 +19,17 @@ function formSubmitted(): void {
 }
 </script>
 
-
-
-
 <template>
   <form @submit.prevent="formSubmitted">
     <label>
-    
-      <input v-model="newTask" name="newTask" :aria-invalid="!! error || undefined" 
-      @input="error=''"
-      >
+      <input
+        v-model="newTask"
+        :aria-invalid="!!error || undefined"
+        @input="error = ''"
+      />
 
-      <small v-if="error" id="invalid-helper">
-         {{ error }}
+      <small v-if="error">
+        {{ error }}
       </small>
     </label>
 
@@ -39,8 +37,4 @@ function formSubmitted(): void {
       <button type="submit">Add</button>
     </div>
   </form>
-
-
-
-  <h3>{{ newTask }}</h3>
 </template>
